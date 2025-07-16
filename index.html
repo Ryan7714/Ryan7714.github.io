@@ -32,7 +32,7 @@
         const pairingsRef = firebase.database().ref('pairings'); // or just 'pairings' if it’s a single file
 
         // Inject the HTML string into the page
-        pairingsRef.once('value')
+        pairingsRef.on('value')
             .then(snapshot => {
                 const htmlString = snapshot.val();
                 console.log(htmlString)
