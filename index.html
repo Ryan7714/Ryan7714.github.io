@@ -1,7 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JND Pairings</title>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages. Change</p>
+    <h1>Pokemon Tournament Pairings</h1>
+    <div id="pairings-container">Loading...</div>
+
+    <script>
+        // Your Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyB6CHwzuinVnEZn-qP-zJdc9ZKWwRcQ1Ms",
+            authDomain: "jndpokemonstandings.firebaseapp.com",
+            databaseURL: "https://jndpokemonstandings-default-rtdb.firebaseio.com",
+            projectId: "jndpokemonstandings",
+            storageBucket: "jndpokemonstandings.firebasestorage.app",
+            messagingSenderId: "804895009890",
+            appId: "1:804895009890:web:716b0174522624a6ccf53b",
+            measurementId: "G-0C7L4GFLDF"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Reference to pairings
+        const pairingsRef = firebase.database().ref('https://jndpokemonstandings-default-rtdb.firebaseio.com/'); // or just 'pairings' if it’s a single file
+
+        // Inject the HTML string into the page
+        pairingsRef.once('value')
+            .then(snapshot => {
+                const htmlString = snapshot.val();
+                document.getElementById('pairings-container').innerHTML = htmlString;
+            })
+            .catch(error => {
+                document.getElementById('pairings-container').textContent = 'Failed to load pairings.';
+                console.error('Error loading HTML:', error);
+            });
+    </script>
 </body>
 </html>
