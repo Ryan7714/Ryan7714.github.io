@@ -32,16 +32,16 @@
         const pairingsRef = firebase.database().ref('pairings'); // or just 'pairings' if it’s a single file
 
         // Inject the HTML string into the page
-        pairingsRef.on('value')
-            .then(snapshot => {
-                const htmlString = snapshot.val();
-                console.log(htmlString)
-                document.getElementById('pairings-container').innerHTML = htmlString;
-            })
-            .catch(error => {
-                document.getElementById('pairings-container').textContent = 'Failed to load pairings.';
-                console.error('Error loading HTML:', error);
-            });
+        // Listen for real-time updates
+        pairingsRef.on('value', (snapshot) => {
+            const htmlString = snapshot.val();
+            console.log(htmlString);
+            document.getElementById('pairings-container').innerHTML = htmlString;
+        }, (error) => {
+            document.getElementById('pairings-container').textContent = 'Failed to load pairings.';
+            console.error('Error loading HTML:', error);
+        });
+
     </script>
 </body>
 </html>
