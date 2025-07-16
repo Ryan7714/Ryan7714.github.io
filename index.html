@@ -29,7 +29,7 @@
         firebase.initializeApp(firebaseConfig);
 
         // Reference to pairings
-        const pairingsRef = firebase.database().ref('https://jndpokemonstandings-default-rtdb.firebaseio.com/'); // or just 'pairings' if it’s a single file
+        const pairingsRef = firebase.database().ref('https://jndpokemonstandings-default-rtdb.firebaseio.com/pairings'); // or just 'pairings' if it’s a single file
 
         // Inject the HTML string into the page
         pairingsRef.once('value')
