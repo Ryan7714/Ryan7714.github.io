@@ -13,6 +13,9 @@
     <div id="pairings-container">Loading...</div>
 
     <script>
+
+        import firebase from "firebase/app";
+        import "firebase/firestore";
         // Your Firebase config 
         const firebaseConfig = {
             apiKey: "AIzaSyB6CHwzuinVnEZn-qP-zJdc9ZKWwRcQ1Ms",
@@ -25,22 +28,38 @@
             measurementId: "G-0C7L4GFLDF"
         };
 
+        
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
 
-        // Reference to pairings
-        const pairingsRef = firebase.database().ref('pairings'); // or just 'pairings' if it’s a single file
 
-        // Inject the HTML string into the page
-        // Listen for real-time updates
-        pairingsRef.on('value', (snapshot) => {
-            const htmlString = snapshot.val();
-            console.log(htmlString);
-            document.getElementById('pairings-container').innerHTML = htmlString;
-        }, (error) => {
-            document.getElementById('pairings-container').textContent = 'Failed to load pairings.';
-            console.error('Error loading HTML:', error);
+        // Initialize Cloud Firestore and get a reference to the service
+        const db = firebase.firestore();
+
+        db.collection("pairings").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                console.log(`${doc.id} => ${doc.data()}`);
+            });
         });
+        
+
+
+        // // Initialize Firebase
+        // firebase.initializeApp(firebaseConfig);
+
+        // // Reference to pairings
+        // const pairingsRef = firebase.database().ref('pairings'); // or just 'pairings' if it’s a single file
+
+        // // Inject the HTML string into the page
+        // // Listen for real-time updates
+        // pairingsRef.on('value', (snapshot) => {
+        //     const htmlString = snapshot.val();
+        //     console.log(htmlString);
+        //     document.getElementById('pairings-container').innerHTML = htmlString;
+        // }, (error) => {
+        //     document.getElementById('pairings-container').textContent = 'Failed to load pairings.';
+        //     console.error('Error loading HTML:', error);
+        // });
 
     </script>
 </body>
