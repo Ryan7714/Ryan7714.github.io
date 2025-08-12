@@ -37,9 +37,12 @@
 
         db.collection("pairings").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-                console.log(`${doc.id} => ${doc.data()}`);
+                const htmlString = doc.data();
+                console.log(htmlString);
+                document.getElementById('currentPairings').innerHTML = htmlString;
             });
         });
+        
         
 
 
