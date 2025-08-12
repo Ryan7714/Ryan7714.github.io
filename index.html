@@ -39,7 +39,7 @@
             querySnapshot.forEach((doc) => {
                 const htmlString = doc.data();
                 console.log(htmlString);
-                document.getElementById('currentPairings').innerHTML = htmlString;
+                document.getElementById('pairings-container').innerHTML = htmlString;
             });
         });
         
